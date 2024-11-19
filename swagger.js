@@ -5,7 +5,7 @@ const doc = {
     title: 'My API',
     description: 'Hogwarts Registration'
   },
-  host: 'cse341-groupfinal.onrender.com',
+  host: 'cse341-groupfinal-vz4q.onrender.com',
   schemes: ['https']
 };
 
