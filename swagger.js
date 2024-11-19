@@ -5,8 +5,8 @@ const doc = {
     title: 'My API',
     description: 'Hogwarts Registration'
   },
-  host: 'localhost:8080',
-  schemes: ['http']
+  host: 'cse341-groupfinal.onrender.com',
+  schemes: ['https']
 };
 
 const outputFile = './swagger.json';
