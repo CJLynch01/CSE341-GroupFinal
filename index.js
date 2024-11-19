@@ -4,7 +4,7 @@ const port = process.env.PORT || 8080;
 const app = express();
 // const { auth, requiresAuth } = require('express-openid-connect');
 
-require('dotenv').config();
+// require('dotenv').config();
 
 // const config = {
 //   authRequired: false,
