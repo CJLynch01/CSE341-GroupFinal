@@ -1,0 +1,99 @@
+// LOCALHOST
+###
+GET http://localhost:8080/house
+###
+GET http://localhost:8080/house/67448f9db48ff4702dd4b6d3
+###
+POST http://localhost:8080/house HTTP/1.1
+Content-Type: application/json
+
+{
+    "location": "3rd floor",
+    "information": "this house is greatish",
+    "password": "password"
+}
+###
+PUT http://localhost:8080/house/6744925cf829785ebabae6b1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "location": "1st floor",
+    "information": "this house is meh",
+    "password": "password123"
+}
+###
+GET http://localhost:8080/class
+###
+GET http://localhost:8080/class/67450d39e8924de0546355fc
+###
+POST http://localhost:8080/class HTTP/1.1
+Content-Type: application/json
+
+{
+    "className": "herbology",
+    "recipes": "earmuffs"
+}
+###
+PUT http://localhost:8080/class/67450d39e8924de0546355fc HTTP/1.1
+Content-Type: application/json
+
+{
+    "className": "potions",
+    "recipes": "boomslang skin"
+}
+###
+DELETE http://localhost:8080/class/67452ce6f23e132d5a7fa438 HTTP/1.1
+###
+GET http://localhost:8080/floor
+###
+GET http://localhost:8080/floor/67452d3af23e132d5a7fa439
+###
+POST http://localhost:8080/floor HTTP/1.1
+Content-Type: application/json
+
+{
+    "floorNum": "6th floor",
+    "permission": "Prefects floor"
+}
+###
+PUT http://localhost:8080/floor/67452d3af23e132d5a7fa439 HTTP/1.1
+Content-Type: application/json
+
+{
+    "floorNum": "3rd floor",
+    "permission": "Nope, Fluffy is here"
+}
+###
+DELETE http://localhost:8080/floor/67452d3af23e132d5a7fa439 HTTP/1.1
+###
+GET http://localhost:8080/student
+###
+GET http://localhost:8080/student/67452d95f23e132d5a7fa43a
+###
+POST http://localhost:8080/student HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Hermione",
+    "middleName": "Jane",
+    "lastName": "Granger",
+    "year": "1st",
+    "house": "Gryffindor",
+    "birthday": "07/25/2000",
+    "userId": "008"
+}
+###
+PUT http://localhost:8080/student/67452d95f23e132d5a7fa43a HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Hermione",
+    "middleName": "J",
+    "lastName": "Granger",
+    "year": "1st",
+    "house": "Gryffindor",
+    "birthday": "07/25/2000",
+    "userId": "008"
+}
+###
+DELETE http://localhost:8080/student/67452d95f23e132d5a7fa43a HTTP/1.1
