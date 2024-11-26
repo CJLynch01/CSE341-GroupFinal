@@ -41,7 +41,7 @@ const editFloor = async (req, res) => {
   const response = await mongodb
     .getDb()
     .db()
-    .collection('class')
+    .collection('floor')
     .replaceOne({ _id: floorId }, floor);
   console.log(response);
   if (response.modifiedCount > 0) {
@@ -53,7 +53,7 @@ const editFloor = async (req, res) => {
 
 const deleteFloor = async (req, res) => {
   const floorId = new ObjectId(req.params.id);
-  const response = await mongodb.getDb().db().collection('floor').remove({ _id: floorId }, true);
+  const response = await mongodb.getDb().db().collection('floor').deleteOne({ _id: floorId });
   console.log(response);
   if (response.deletedCount > 0) {
     res.status(204).send();

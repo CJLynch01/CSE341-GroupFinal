@@ -43,7 +43,7 @@ const editHouse = async (req, res) => {
   const response = await mongodb
     .getDb()
     .db()
-    .collection('student')
+    .collection('house')
     .replaceOne({ _id: houseId }, house);
   console.log(response);
   if (response.modifiedCount > 0) {

@@ -8,9 +8,9 @@ router.get('/', studentController.getAll);
 
 router.get('/:id', studentController.getSingle);
 
-router.post('/', validation.saveStudent, studentController.createNewStudent);
+router.post('/', studentController.createNewStudent);
 
-router.put('/:id', validation.saveStudent, studentController.editStudent);
+router.put('/:id', studentController.editStudent);
 
 router.delete('/:id', studentController.deleteStudent);
 

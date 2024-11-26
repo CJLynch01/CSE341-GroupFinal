@@ -8,10 +8,10 @@ router.get('/', floorController.getAll);
 
 router.get('/:id', floorController.getSingle);
 
-router.post('/', validation.saveFloor, floorController.createNewFloor);
+router.post('/', floorController.createNewFloor);
 
-router.put('/:id', validation.saveFloor, floorController.editFloor);
+router.put('/:id', floorController.editFloor);
 
-router.delete('/:id', classController.deleteFloor);
+router.delete('/:id', floorController.deleteFloor);
 
 module.exports = router;

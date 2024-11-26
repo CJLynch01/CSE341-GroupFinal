@@ -52,8 +52,8 @@ const editClass = async (req, res) => {
 };
 
 const deleteClass = async (req, res) => {
-  const userId = new ObjectId(req.params.id);
-  const response = await mongodb.getDb().db().collection('class').remove({ _id: classId }, true);
+  const classId = new ObjectId(req.params.id);
+  const response = await mongodb.getDb().db().collection('class').deleteOne({ _id: classId });
   console.log(response);
   if (response.deletedCount > 0) {
     res.status(204).send();
