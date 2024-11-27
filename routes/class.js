@@ -8,9 +8,9 @@ router.get('/', classController.getAll);
 
 router.get('/:id', classController.getSingle);
 
-router.post('/', validation.saveClass, recipesController.createNewClass);
+router.post('/', classController.createNewClass);
 
-router.put('/:id', validation.saveClass, recipesController.editClass);
+router.put('/:id', classController.editClass);
 
 router.delete('/:id', classController.deleteClass);
 
