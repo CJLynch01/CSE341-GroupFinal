@@ -96,4 +96,8 @@ Content-Type: application/json
     "userId": "008"
 }
 ###
-DELETE http://localhost:8080/student/67452d95f23e132d5a7fa43a HTTP/1.1
+DELETE http://localhost:8080/student/67452d95f23e132d5a7fa43a HTTP/1.
+
+
+###
+GET https://cse341-groupfinal-vz4q.onrender.com/student
