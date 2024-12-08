@@ -30,7 +30,7 @@ const createNewStudent = async (req, res) => {
     lastName: req.body.lastName,
     year: parseInt(req.body.year, 10),
     house: randomHouse._id,
-    birthday: new Date(req.body.birthday),
+    birthday: req.body.birthday,
     userId: req.body.userId
   };
   const response = await mongodb.getDb().db().collection('student').insertOne(user);
