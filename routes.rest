@@ -13,17 +13,17 @@ Content-Type: application/json
     "password": "password"
 }
 ###
-PUT http://localhost:8080/house/67468f651b12a84d8a35630d HTTP/1.1
+PUT http://localhost:8080/house/674693051b12a84d8a356310 HTTP/1.1
 Content-Type: application/json
 
 {
-    "house": "Hufflepuff",
-    "location": "1st floor",
-    "information": "The mascot is a badger. This house values loyalty and you won't find a more loyal companion elsewhere.",
-    "password": "Cedric Rules"
+    "house": "Slytherin",
+    "location": "Dungeons",
+    "information": "Members of this house often have shadows cast over them. However, they are ambitous and seek greatness.",
+    "password": "For the greater good."
 }
 ###
-DELETE http://localhost:8080/house/67468f651b12a84d8a35630d HTTP/1.1
+DELETE http://localhost:8080/house/67553c4df4beefed29903372 HTTP/1.1
 ###
 GET http://localhost:8080/class
 ###
@@ -111,7 +111,7 @@ Content-Type: application/json
     "userId": "008"
 }
 ###
-DELETE http://localhost:8080/student/67553342117aa834608c795f HTTP/1.
+DELETE http://localhost:8080/student/67553342117aa834608c795f HTTP/1.1
 
 
 ###

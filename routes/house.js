@@ -10,6 +10,8 @@ router.get('/:id', houseController.getSingle);
 
 router.post('/', houseController.createNewHouse);
 
-router.put('/:id', houseController.editHouse);
+router.put('/house/:id', houseController.editHouse);
+
+router.delete('/:id', houseController.deleteHouse);
 
 module.exports = router;

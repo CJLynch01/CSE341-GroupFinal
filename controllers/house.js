@@ -36,6 +36,7 @@ const editHouse = async (req, res) => {
   const houseId = new ObjectId(req.params.id);
   // be aware of updateOne if you only want to update specific fields
   const house = {
+    house: req.body.house,
     location: req.body.location,
     information: req.body.information,
     password: req.body.password
@@ -53,17 +54,28 @@ const editHouse = async (req, res) => {
   }
 };
 
+const deleteHouse = async (req, res) => {
+  const houseId = new ObjectId(req.params.id);
+  const response = await mongodb.getDb().db().collection('house').deleteOne({ _id: houseId });
+  console.log(response);
+  if (response.deletedCount > 0) {
+    res.status(204).send();
+  } else {
+    res.status(500).json(response.error || 'Some error occurred while deleting the floor.');
+  }
+};
+
 const getRandomHouse = async () => {
-  const houses = await mongodb.getDb().db().collection('house').find().toArray();
+  const house = await mongodb.getDb().db().collection('house').find().toArray();
   console.log('Houses Fetched:', houses); // Debugging log
 
-  if (!houses || houses.length === 0) {
+  if (!house || house.length === 0) {
     console.log('No houses found in the database.'); // Debugging log
     throw new Error('No houses available for assignment.');
   }
 
-  const randomIndex = Math.floor(Math.random() * houses.length);
-  const selectedHouse = houses[randomIndex];
+  const randomIndex = Math.floor(Math.random() * house.length);
+  const selectedHouse = house[randomIndex];
   console.log('Selected House:', selectedHouse); // Debugging log
   return selectedHouse;
 };
@@ -74,5 +86,6 @@ module.exports = {
   getSingle,
   createNewHouse,
   editHouse,
+  deleteHouse,
   getRandomHouse
 };
