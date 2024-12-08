@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
-
+const validation = require('../middleware/validate')
 const studentController = require('../controllers/student');
-const {saveStudent} = require('../middleware/validate');
 
 router.get('/', studentController.getAll);
 
 router.get('/:id', studentController.getSingle);
 
-router.post('/', saveStudent, studentController.createNewStudent);
+router.post('/', validation.saveStudent, studentController.createNewStudent);
 
 router.put('/:id', studentController.editStudent);
 
