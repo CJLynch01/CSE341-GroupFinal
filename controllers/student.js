@@ -20,28 +20,40 @@ const getSingle = async (req, res) => {
 };
 
 const createNewStudent = async (req, res) => {
+  try {
+    const randomHouse = await getRandomHouse();
+    console.log('Random House:', randomHouse); // Debugging log
 
-  //for randomizer
-  const randomHouse = await getRandomHouse();
+    if (!randomHouse || !randomHouse.name) {
+      return res.status(400).json({ error: 'No valid house available for assignment.' });
+    }
 
-  const user = {
-    firstName: req.body.firstName,
-    middleName: req.body.middleName,
-    lastName: req.body.lastName,
-    year: parseInt(req.body.year, 10),
-    house: randomHouse.houses,
-    birthday: req.body.birthday,
-    userId: req.body.userId
-  };
-  const response = await mongodb.getDb().db().collection('student').insertOne(user);
-  if (response.acknowledged) {
-    res.status(201).json({
-      message: 'Student created successfully',
-      studentID: response.insertedId,
-      assignedHouse: randomHouse.houses
-    });
-  } else {
-    res.status(500).json(response.error || 'Failed to register.');
+    const student = {
+      firstName: req.body.firstName,
+      middleName: req.body.middleName,
+      lastName: req.body.lastName,
+      year: parseInt(req.body.year, 10),
+      house: randomHouse.name, // Assign house name
+      birthday: req.body.birthday,
+      userId: req.body.userId
+    };
+
+    console.log('Student Object Before Insert:', student); // Debugging log
+
+    const response = await mongodb.getDb().db().collection('student').insertOne(student);
+
+    if (response.acknowledged) {
+      res.status(201).json({
+        message: 'Student created successfully',
+        studentID: response.insertedId,
+        assignedHouse: randomHouse.name
+      });
+    } else {
+      throw new Error('Failed to register.');
+    }
+  } catch (error) {
+    console.error('Error in createNewStudent:', error.message); // Debugging log
+    res.status(500).json({ error: error.message });
   }
 };
 
