@@ -1,4 +1,5 @@
 const mongodb = require('../db/connect');
+const { getRandomHouse } = require('./house');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
@@ -19,20 +20,28 @@ const getSingle = async (req, res) => {
 };
 
 const createNewStudent = async (req, res) => {
+
+  //for randomizer
+  const randomHouse = await getRandomHouse();
+
   const user = {
     firstName: req.body.firstName,
     middleName: req.body.middleName,
     lastName: req.body.lastName,
     year: req.body.year,
-    house: req.body.house,
+    house: randomHouse._id,
     birthday: req.body.birthday,
     userId: req.body.userId
   };
   const response = await mongodb.getDb().db().collection('student').insertOne(user);
   if (response.acknowledged) {
-    res.status(201).json(response);
+    res.status(201).json({
+      message: 'Student created successfully',
+      studentID: response.insertedId,
+      assignedHouse: randomHouse
+    });
   } else {
-    res.status(500).json(response.error || 'Some error occurred while creating the user.');
+    res.status(500).json(response.error || 'Failed to register.');
   }
 };
 

@@ -1,6 +1,11 @@
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
+//Avoids confusing with getAll -- reusable function for randomizer
+const fetchAllHouses = async () => {
+  return await mongodb.getDb().db().collection('house').find().toArray();
+};
+
 const getAll = async (req, res) => {
   const result = await mongodb.getDb().db().collection('house').find();
   result.toArray().then((lists) => {
@@ -53,9 +58,21 @@ const editHouse = async (req, res) => {
   }
 };
 
+// Get a random house
+const getRandomHouse = async () => {
+  const houses = await fetchAllHouses();
+  if (!houses || houses.length === 0) {
+    throw new Error('No houses available for assignment.');
+  }
+  const randomIndex = Math.floor(Math.random() * houses.length);
+  return houses[randomIndex];
+};
+
+
 module.exports = {
   getAll,
   getSingle,
   createNewHouse,
-  editHouse
+  editHouse,
+  getRandomHouse
 };
