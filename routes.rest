@@ -83,6 +83,19 @@ Content-Type: application/json
     "userId": "008"
 }
 ###
+POST http://localhost:8080/student HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Captain",
+    "middleName": "Stud",
+    "lastName": "Awesome",
+    "year": "1",
+    "house": "Gryffindor",
+    "birthday": "07/25/2000",
+    "userId": "0010"
+}
+###
 PUT http://localhost:8080/student/67452d95f23e132d5a7fa43a HTTP/1.1
 Content-Type: application/json
 

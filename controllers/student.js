@@ -28,9 +28,9 @@ const createNewStudent = async (req, res) => {
     firstName: req.body.firstName,
     middleName: req.body.middleName,
     lastName: req.body.lastName,
-    year: req.body.year,
+    year: parseInt(req.body.year, 10),
     house: randomHouse._id,
-    birthday: req.body.birthday,
+    birthday: new Date(req.body.birthday),
     userId: req.body.userId
   };
   const response = await mongodb.getDb().db().collection('student').insertOne(user);
@@ -38,7 +38,7 @@ const createNewStudent = async (req, res) => {
     res.status(201).json({
       message: 'Student created successfully',
       studentID: response.insertedId,
-      assignedHouse: randomHouse
+      assignedHouse: randomHouse.name
     });
   } else {
     res.status(500).json(response.error || 'Failed to register.');
