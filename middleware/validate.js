@@ -1,48 +1,29 @@
-// const validator = require('../helpers/validate');
+const validator = require('../helpers/validate');
 
-// const saveCategory = (req, res, next) => {
-//     const validationRule = {
-//         categoryName: 'required|string',
-//         categoryDescription: 'required|string'
-//     };
-//     validator(req.body, validationRule, {}, (err, status) => {
-//         if (!status) {
-//             return res.status(412).send({
-//                 success: false,
-//                 message: 'Validation failed',
-//                 data: err
-//             });
-//         } else {
-//         next();
-//         }
-//     });
-// };
+const saveStudent = (req, res, next) => {
+  const validationRule = {
+    firstName: 'required|string',
+    middleName: 'string',
+    lastName: 'required|string',
+    year: 'required|integer|min:1|max:7',
+    birthday: 'required|date',
+    userId: 'required|string',
+    // Exclude 'house' to enforce random assignment
+  };
 
-// const saveRecipe = (req, res, next) => {
-//     const validationRule = {
-//         recipeName: 'required|string',
-//         recipeDescription: 'required|string',
-//         recipePrepTime: 'required|string',
-//         recipeCookTime: 'required|string',
-//         recipeServingSize: 'required|string',
-//         recipeIngredients: 'required|array',
-//         'recipeIngredients.*': 'string',
-//         recipeInstructions: 'required|string'
-//     };
-//     validator(req.body, validationRule, {}, (err, status) => {
-//         if (!status) {
-//             return res.status(412).send({
-//                 success: false,
-//                 message: 'Validation failed',
-//                 data: err
-//             });
-//         } else {
-//         next();
-//         }
-//     });
-// };
+  validator(req.body, validationRule, {}, (err, status) => {
+    if (!status) {
+      return res.status(412).send({
+        success: false,
+        message: 'Validation failed',
+        data: err
+      });
+    } else {
+      next();
+    }
+  });
+};
 
-// module.exports = {
-//     // saveRecipe,
-//     // saveCategory
-// };
+module.exports = {
+  saveStudent,
+};
