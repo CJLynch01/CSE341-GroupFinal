@@ -91,7 +91,6 @@ Content-Type: application/json
     "middleName": "Stud",
     "lastName": "Awesome",
     "year": "1",
-    "house": "Gryffindor",
     "birthday": "07/25/2000",
     "userId": "0010"
 }
@@ -109,7 +108,7 @@ Content-Type: application/json
     "userId": "008"
 }
 ###
-DELETE http://localhost:8080/student/67452d95f23e132d5a7fa43a HTTP/1.
+DELETE http://localhost:8080/student/67553342117aa834608c795f HTTP/1.
 
 
 ###

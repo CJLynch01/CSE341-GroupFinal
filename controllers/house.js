@@ -65,7 +65,7 @@ const getRandomHouse = async () => {
     throw new Error('No houses available for assignment.');
   }
   const randomIndex = Math.floor(Math.random() * houses.length);
-  return houses[randomIndex];
+  return houses[randomIndex]; // Return full house document
 };
 
 
