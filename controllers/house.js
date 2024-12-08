@@ -20,6 +20,7 @@ const getSingle = async (req, res) => {
 
 const createNewHouse = async (req, res) => {
   const house = {
+    house: req.body.house,
     location: req.body.location,
     information: req.body.information,
     password: req.body.password
@@ -67,7 +68,7 @@ const deleteHouse = async (req, res) => {
 
 const getRandomHouse = async () => {
   try {
-    const house = await mongodb.getDb().db().collection('house').find().toArray();
+    const house = await mongodb.getDb().db().collection('house').find();
     console.log('Houses Fetched:', house); // Log the fetched houses
 
     if (!house || house.length === 0) {

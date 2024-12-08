@@ -33,7 +33,7 @@ const createNewStudent = async (req, res) => {
       middleName: req.body.middleName,
       lastName: req.body.lastName,
       year: parseInt(req.body.year, 10),
-      house: randomHouse.name, // Assign house name
+      house: randomHouse.house, // Assign house name
       birthday: req.body.birthday,
       userId: req.body.userId
     };
@@ -46,7 +46,7 @@ const createNewStudent = async (req, res) => {
       res.status(201).json({
         message: 'Student created successfully',
         studentID: response.insertedId,
-        assignedHouse: randomHouse.name
+        assignedHouse: randomHouse.house
       });
     } else {
       throw new Error('Failed to register.');
