@@ -66,18 +66,24 @@ const deleteHouse = async (req, res) => {
 };
 
 const getRandomHouse = async () => {
-  const house = await mongodb.getDb().db().collection('house').find().toArray();
-  console.log('Houses Fetched:', houses); // Debugging log
+  try {
+    const house = await mongodb.getDb().db().collection('house').find().toArray();
+    console.log('Houses Fetched:', house); // Log the fetched houses
 
-  if (!house || house.length === 0) {
-    console.log('No houses found in the database.'); // Debugging log
-    throw new Error('No houses available for assignment.');
+    if (!house || house.length === 0) {
+      console.log('No houses found in the database.');
+      throw new Error('No houses available for assignment.');
+    }
+
+    const randomIndex = Math.floor(Math.random() * house.length);
+    const selectedHouse = house[randomIndex];
+    console.log('Random Index:', randomIndex); // Log the selected index
+    console.log('Selected House:', selectedHouse); // Log the selected house
+    return selectedHouse;
+  } catch (error) {
+    console.error('Error in getRandomHouse:', error.message);
+    throw error; // Re-throw the error
   }
-
-  const randomIndex = Math.floor(Math.random() * house.length);
-  const selectedHouse = house[randomIndex];
-  console.log('Selected House:', selectedHouse); // Debugging log
-  return selectedHouse;
 };
 
 
