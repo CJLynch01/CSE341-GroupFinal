@@ -68,7 +68,7 @@ const deleteHouse = async (req, res) => {
 
 const getRandomHouse = async () => {
   try {
-    const house = await mongodb.getDb().db().collection('house').find();
+    const house = await mongodb.getDb().db().collection('house').find().toArray();
     console.log('Houses Fetched:', house); // Log the fetched houses
 
     if (!house || house.length === 0) {
