@@ -24,7 +24,7 @@ const createNewStudent = async (req, res) => {
     const randomHouse = await getRandomHouse();
     console.log('Random House:', randomHouse); // Debugging log
 
-    if (!randomHouse || !randomHouse.name) {
+    if (!randomHouse || !randomHouse.house) {
       return res.status(400).json({ error: 'No valid house available for assignment.' });
     }
 

@@ -111,7 +111,7 @@ Content-Type: application/json
     "userId": "008"
 }
 ###
-DELETE http://localhost:8080/student/67553342117aa834608c795f HTTP/1.1
+DELETE http://localhost:8080/student/67563c46d5875961677e1a21 HTTP/1.1
 
 
 ###
