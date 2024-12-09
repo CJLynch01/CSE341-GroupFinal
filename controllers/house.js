@@ -1,92 +1,115 @@
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
+// Get all houses
 const getAll = async (req, res) => {
-  const result = await mongodb.getDb().db().collection('house').find();
-  result.toArray().then((lists) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(lists);
-  });
-};
-
-const getSingle = async (req, res) => {
-  const houseId = new ObjectId(req.params.id);
-  const result = await mongodb.getDb().db().collection('house').find({ _id: houseId });
-  result.toArray().then((lists) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(lists[0]);
-  });
-};
-
-const createNewHouse = async (req, res) => {
-  const house = {
-    house: req.body.house,
-    location: req.body.location,
-    information: req.body.information,
-    password: req.body.password
-  };
-  const response = await mongodb.getDb().db().collection('house').insertOne(house);
-  if (response.acknowledged) {
-    res.status(201).json(response);
-  } else {
-    res.status(500).json(response.error || 'Some error occurred while creating the house.');
-  }
-};
-
-const editHouse = async (req, res) => {
-  const houseId = new ObjectId(req.params.id);
-  // be aware of updateOne if you only want to update specific fields
-  const house = {
-    house: req.body.house,
-    location: req.body.location,
-    information: req.body.information,
-    password: req.body.password
-  };
-  const response = await mongodb
-    .getDb()
-    .db()
-    .collection('house')
-    .replaceOne({ _id: houseId }, house);
-  console.log(response);
-  if (response.modifiedCount > 0) {
-    res.status(204).send();
-  } else {
-    res.status(500).json(response.error || 'Some error occurred while updating the house.');
-  }
-};
-
-const deleteHouse = async (req, res) => {
-  const houseId = new ObjectId(req.params.id);
-  const response = await mongodb.getDb().db().collection('house').deleteOne({ _id: houseId });
-  console.log(response);
-  if (response.deletedCount > 0) {
-    res.status(204).send();
-  } else {
-    res.status(500).json(response.error || 'Some error occurred while deleting the floor.');
-  }
-};
-
-const getRandomHouse = async () => {
   try {
-    const house = await mongodb.getDb().db().collection('house').find().toArray();
-    console.log('Houses Fetched:', house); // Log the fetched houses
+    const houses = await mongodb.getDb().db().collection('house').find().toArray();
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(houses);
+  } catch (error) {
+    console.error('Error fetching all houses:', error.message);
+    res.status(500).json({ error: 'Failed to retrieve houses' });
+  }
+};
 
-    if (!house || house.length === 0) {
-      console.log('No houses found in the database.');
-      throw new Error('No houses available for assignment.');
+// Get a single house by ID
+const getSingle = async (req, res) => {
+  try {
+    const houseId = new ObjectId(req.params.id);
+    const house = await mongodb.getDb().db().collection('house').findOne({ _id: houseId });
+
+    if (!house) {
+      return res.status(404).json({ error: 'House not found' });
     }
 
-    const randomIndex = Math.floor(Math.random() * house.length);
-    const selectedHouse = house[randomIndex];
-    console.log('Random Index:', randomIndex); // Log the selected index
-    console.log('Selected House:', selectedHouse); // Log the selected house
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(house);
+  } catch (error) {
+    console.error('Error fetching house:', error.message);
+    res.status(500).json({ error: 'Failed to retrieve the house' });
+  }
+};
+
+// Create a new house
+const createNewHouse = async (req, res) => {
+  try {
+    const { house, location, information, password } = req.body;
+
+    if (!house || !location || !information) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const newHouse = { house, location, information, password };
+    const response = await mongodb.getDb().db().collection('house').insertOne(newHouse);
+
+    if (response.acknowledged) {
+      res.status(201).json({ message: 'House created successfully', id: response.insertedId });
+    } else {
+      throw new Error('Failed to create the house');
+    }
+  } catch (error) {
+    console.error('Error creating new house:', error.message);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Edit an existing house
+const editHouse = async (req, res) => {
+  try {
+    const houseId = new ObjectId(req.params.id);
+    const { house, location, information, password } = req.body;
+
+    const updateFields = { ...(house && { house }), ...(location && { location }), ...(information && { information }), ...(password && { password }) };
+
+    const response = await mongodb.getDb().db().collection('house').updateOne({ _id: houseId }, { $set: updateFields });
+
+    if (response.modifiedCount > 0) {
+      res.status(200).json({ message: 'House updated successfully' });
+    } else {
+      res.status(404).json({ error: 'House not found or no changes made' });
+    }
+  } catch (error) {
+    console.error('Error editing house:', error.message);
+    res.status(500).json({ error: 'Failed to update the house' });
+  }
+};
+
+// Delete a house by ID
+const deleteHouse = async (req, res) => {
+  try {
+    const houseId = new ObjectId(req.params.id);
+    const response = await mongodb.getDb().db().collection('house').deleteOne({ _id: houseId });
+
+    if (response.deletedCount > 0) {
+      res.status(200).json({ message: 'House deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'House not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting house:', error.message);
+    res.status(500).json({ error: 'Failed to delete the house' });
+  }
+};
+
+// Get a random house
+const getRandomHouse = async () => {
+  try {
+    const houses = await mongodb.getDb().db().collection('house').find().toArray();
+
+    if (!houses || houses.length === 0) {
+      throw new Error('No houses available for assignment');
+    }
+
+    const randomIndex = Math.floor(Math.random() * houses.length);
+    const selectedHouse = houses[randomIndex];
+
     return selectedHouse;
   } catch (error) {
     console.error('Error in getRandomHouse:', error.message);
-    throw error; // Re-throw the error
+    throw error;
   }
 };
-
 
 module.exports = {
   getAll,
