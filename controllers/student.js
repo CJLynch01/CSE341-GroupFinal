@@ -22,7 +22,7 @@ const getSingle = async (req, res) => {
 const createNewStudent = async (req, res) => {
   try {
     const randomHouse = await getRandomHouse();
-    console.log('Random House:', randomHouse); // Debugging log
+    console.log('Random House:', randomHouse);
 
     if (!randomHouse || !randomHouse.house) {
       return res.status(400).json({ error: 'No valid house available for assignment.' });
@@ -33,12 +33,12 @@ const createNewStudent = async (req, res) => {
       middleName: req.body.middleName,
       lastName: req.body.lastName,
       year: parseInt(req.body.year, 10),
-      house: randomHouse.house, // Assign house name
+      house: randomHouse.house,
       birthday: req.body.birthday,
       userId: req.body.userId
     };
 
-    console.log('Student Object Before Insert:', student); // Debugging log
+    console.log('Student Object Before Insert:', student);
 
     const response = await mongodb.getDb().db().collection('student').insertOne(student);
 
@@ -52,14 +52,14 @@ const createNewStudent = async (req, res) => {
       throw new Error('Failed to register.');
     }
   } catch (error) {
-    console.error('Error in createNewStudent:', error.message); // Debugging log
+    console.error('Error in createNewStudent:', error.message); 
     res.status(500).json({ error: error.message });
   }
 };
 
 const editStudent = async (req, res) => {
   const userId = new ObjectId(req.params.id);
-  // be aware of updateOne if you only want to update specific fields
+
   const user = {
     firstName: req.body.firstName,
     middleName: req.body.middleName,

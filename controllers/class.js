@@ -33,7 +33,6 @@ const createNewClass = async (req, res) => {
 
 const editClass = async (req, res) => {
   const classId = new ObjectId(req.params.id);
-  // be aware of updateOne if you only want to update specific fields
   const classDetails = {
     className: req.body.className,
     recipes: req.body.recipes

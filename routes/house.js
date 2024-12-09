@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const houseController = require('../controllers/house');
-// const validation = require('../middleware/validate');
 
 router.get('/', houseController.getAll);
 

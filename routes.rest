@@ -80,7 +80,7 @@ Content-Type: application/json
     "firstName": "Hermione",
     "middleName": "Jane",
     "lastName": "Granger",
-    "year": "1st",
+    "year": "1",
     "house": "Gryffindor",
     "birthday": "07/25/2000",
     "userId": "008"
@@ -105,7 +105,7 @@ Content-Type: application/json
     "firstName": "Hermione",
     "middleName": "J",
     "lastName": "Granger",
-    "year": "1st",
+    "year": "1",
     "house": "Gryffindor",
     "birthday": "07/25/2000",
     "userId": "008"

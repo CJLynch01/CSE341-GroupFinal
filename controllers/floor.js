@@ -33,7 +33,6 @@ const createNewFloor = async (req, res) => {
 
 const editFloor = async (req, res) => {
   const floorId = new ObjectId(req.params.id);
-  // be aware of updateOne if you only want to update specific fields
   const floor = {
     floorNum: req.body.floorNum,
     permission: req.body.permission
